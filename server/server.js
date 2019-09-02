@@ -15,6 +15,29 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE);
 
 
+//Models
+
+const { User } = require('./models/user');
+
+
+//=============================
+//            USERS
+//=============================
+
+app.post('/api/users/register', (req,res) =>{
+    const user = new User(req.body)
+
+    user.save((err,doc) => {
+        if(err) return res.json({ success:false,err })
+        res.status(200).json({
+            success:true,
+            userdata:doc
+        })
+    })
+})
+
+
+
 port = process.env.PORT || 3002;
 
 app.listen(port, () => {
