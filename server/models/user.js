@@ -74,7 +74,7 @@ userSchema.methods.comparePassword = function(candidatePassword,cb){
 userSchema.methods.generateToken = function(cb){
     var user = this;
 
-    const token = jwt.sign(user.name,process.env.SECRET)
+    const token = jwt.sign(user.email,process.env.SECRET)
 
     user.token = token
 
@@ -89,7 +89,7 @@ userSchema.statics.findByToken = function(token,cb){
     var user = this;
 
     jwt.verify(token,process.env.SECRET,function(err,decode){
-        user.findOne({'name':decode,'token':token},function(err,user){
+        user.findOne({'email':decode,'token':token},function(err,user){
             if(err) return cb(err);
 
             cb(null,user)
