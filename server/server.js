@@ -19,10 +19,33 @@ mongoose.connect(process.env.DATABASE);
 //Models
 
 const { User } = require('./models/user');
+const { Brand } = require('./models/brand');
 
 //Middlewares 
 
 const { auth } = require('./middlwares/auth');
+const { admin } = require('./middlwares/admin');
+
+
+//=============================
+//            Brand
+//=============================
+
+
+app.post('/api/product/brand',auth,admin,(req,res)=>{
+    const brand = new Brand(req.body)
+
+    brand.save((err,doc)=>{
+        if (err) return res.json({addBrandSucces:false,err})
+
+        res.status(200).json({
+            addBrandSucces:true,
+            brand:doc
+        })
+    })
+})
+
+
 
 
 //=============================
