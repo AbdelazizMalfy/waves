@@ -18,12 +18,12 @@ const userSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
-        maxlenght: 100
+        maxlength: 100
     },
     lastname:{
         type: String,
         required: true,
-        maxlenght: 100
+        maxlength: 100
     },
     cart:{
         type: Array,

@@ -21,11 +21,31 @@ mongoose.connect(process.env.DATABASE);
 const { User } = require('./models/user');
 const { Brand } = require('./models/brand');
 const { Wood } = require('./models/wood');
+const { Product } = require('./models/product');
 
 //Middlewares 
 
 const { auth } = require('./middlwares/auth');
 const { admin } = require('./middlwares/admin');
+
+
+//=============================
+//          PRODUCTS
+//=============================
+
+app.post('/api/product/product',auth,admin,(req,res)=>{
+    const product = new Product(req.body)
+
+    product.save((err,doc)=>{
+        if(err) return res.json({addProductSuccess:false,err})
+
+        res.status(200).json({
+            addProductSuccess:true,
+            product:doc
+        })
+    })
+})
+
 
 
 //=============================
