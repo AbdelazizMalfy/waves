@@ -33,6 +33,29 @@ const { admin } = require('./middlwares/admin');
 //          PRODUCTS
 //=============================
 
+// Getting Products by arrival or sold 
+
+app.get('/api/product/products',(req,res)=>{
+    let order = req.query.order ? req.query.order : 'asc';
+    let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+    let limit = req.query.limit ? parseInt(req.query.limit) : 100;
+
+    Product
+    .find()
+    .populate('brand')
+    .populate('wood')
+    .sort([[sortBy,order]])
+    .limit(limit)
+    .exec((err,docs)=>{
+        if(err) return res.status(400).send(err)
+
+        res.send(docs)
+    })
+
+})
+
+
+// Getting Products by specific ID
 app.get('/api/product/products_by_id',(req,res)=>{
     let type = req.query.type;
     items = req.query.id
