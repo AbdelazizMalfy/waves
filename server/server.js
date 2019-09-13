@@ -33,6 +33,28 @@ const { admin } = require('./middlwares/admin');
 //          PRODUCTS
 //=============================
 
+app.get('/api/product/products_by_id',(req,res)=>{
+    let type = req.query.type;
+    items = req.query.id
+    
+    if(type === 'array'){
+        let ids = req.query.id.split(',');
+        items = []
+        items = ids.map(item => mongoose.Types.ObjectId(item))
+    }
+
+    Product
+    .find({'_id':{$in:items}})
+    .populate('brand')
+    .populate('wood')
+    .exec((err,docs)=>{
+        return res.status(200).send(docs)
+    })
+
+    
+})
+
+
 app.post('/api/product/product',auth,admin,(req,res)=>{
     const product = new Product(req.body)
 
