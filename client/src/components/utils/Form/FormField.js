@@ -2,6 +2,21 @@ import React from 'react'
 
 const FormField = ({id,formdata,change}) => {
 
+    const showError = () =>{
+        let errorMessage = null;
+
+        if(formdata.validation && !formdata.valid){
+            errorMessage = ( 
+                <div className='error_label'>
+                    {formdata.validationMessage}
+                </div>
+            )
+        }
+
+        return errorMessage;
+    }
+
+
     const renderedTemplate = ()=>{
         let formTemplate = '';
 
@@ -15,6 +30,7 @@ const FormField = ({id,formdata,change}) => {
                         onBlur={(e) => change({e,id,blur:true})}
                         onChange={(e) => change({e,id})}
                     />
+                    {showError()}
                     </div>
                 )
                 break;
