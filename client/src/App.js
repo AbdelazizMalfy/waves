@@ -1,21 +1,18 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React from 'react';
+import { Switch , Route } from 'react-router-dom';
+
 import './App.css';
+import Home from './components/Home';
+import Layout from './hoc/Layout';
 
-class App extends Component {
-
-  componentDidMount(){
-    axios.get('/api/product/products').then(response => {
-      console.log(response);
-    })
-  }
-  render(){
+const App = () => {
     return (
-      <div>
-        My App
-      </div>
+      <Layout>
+      <Switch>
+        <Route path="/" exact component={Home} />
+      </Switch>
+      </Layout>
     );
-  }
 }
 
 export default App;
