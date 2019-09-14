@@ -1,5 +1,6 @@
 import React from 'react';
 import MyButton from '../utils/MyButton';
+import Login from './Login';
 
 
 const RegisterLogin = () => {
@@ -23,7 +24,7 @@ const RegisterLogin = () => {
                     <div className='right'>
                         <h2>Registed customer</h2>
                         <p>if you have an account please log in.</p>
-                        LOGIN
+                        <Login/>
                     </div>
                 </div>
 
