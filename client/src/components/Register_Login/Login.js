@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import FormField from '../utils/Form/FormField'
-import { update , generateData , isFormValid } from '../utils/Form/FormActions'
+import FormField from '../utils/Form/FormField';
+import { update , generateData , isFormValid } from '../utils/Form/FormActions';
 import { loginUser } from '../../actions/user_actions';
 
 class Login extends Component {
@@ -41,7 +41,7 @@ class Login extends Component {
                 valid:false,
                 touched:false,
                 validationMessage:''
-            },
+            }
         }
     }
 
