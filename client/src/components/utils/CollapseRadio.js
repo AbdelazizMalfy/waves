@@ -1,23 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
 
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
-class CollapseCheckbox extends Component {
-
+class CollapseRadio extends Component {
     state = {
-        open:false,
-        checkedList: []
+        open: false,
+        value:'0'
     }
+
 
     componentDidMount(){
         if(this.props.initState){
@@ -27,55 +28,37 @@ class CollapseCheckbox extends Component {
         }
     }
 
-
     toggle = ()=>{
         this.setState({
             open: !this.state.open
         })
     }
 
-    handleCheckbox = itemId => () => {
-        const { checkedList } = this.state
-        const currentIndex = checkedList.indexOf(itemId)
-        const newCheckedList = [...checkedList]
-
-        if(currentIndex === -1) {
-            newCheckedList.push(itemId)
-        } else {
-            newCheckedList.splice(currentIndex,1)
-        }
-
-        this.setState({
-            checkedList: newCheckedList
-        }, ()=> {
-            this.props.handleFilters(newCheckedList)
-        })
-    }
-
 
     renderList = () => (
-        this.props.list ?
-            this.props.list.map((item) => (
-                <ListItem key={item._id} style={{padding: '5px 0'}}>
-                    <ListItemText primary={item.name}   />
-                    <ListItemSecondaryAction>
-                        <Checkbox 
-                            color='primary'
-                            onChange={this.handleCheckbox(item._id)}
-                            checked={ this.state.checkedList.indexOf(item._id) !== -1 }
-                        />
-                    </ListItemSecondaryAction>
-                </ListItem>
+        this.props.list ? 
+            this.props.list.map(item => (
+                <FormControlLabel
+                    key={item._id}
+                    value={`${item._id}`}
+                    control={<Radio />}
+                    label={item.name}
+                />
             ))
 
         : null
     )
 
 
+    handleRadioChange = (event) =>{
+        this.props.handleFilters(event.target.value)
+        this.setState({value:event.target.value})
+    }
+
 
     render() {
         return (
-            <div className='collapse_items_wrapper'>
+            <div>
                 <List style={{borderBottom: '1px solid #dbdbdb'}}>
                     <ListItem onClick={this.toggle} style={{padding:'10px 23px 10px 0'}}>
                         <ListItemText 
@@ -95,13 +78,23 @@ class CollapseCheckbox extends Component {
                         }
                     </ListItem>
                     <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
+                        {/* <List component="div" disablePadding>
+                            Zezo
+                        </List> */}
+
+                        <RadioGroup 
+                            aria-label='prices'
+                            name='prices'
+                            value={this.state.value}
+                            onChange={this.handleRadioChange}
+                        >
                             {this.renderList()}
-                        </List>
+                        </RadioGroup>
                     </Collapse> 
                 </List>
             </div>
         )
     }
 }
-export default CollapseCheckbox;
+
+export default CollapseRadio;
