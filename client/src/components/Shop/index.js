@@ -3,12 +3,14 @@ import PageTop from '../utils/PageTop';
 
 import { connect } from 'react-redux';
 
-import { getBrands , getWoods } from '../../actions/products_actions';
+import { getProductsToShop, getBrands , getWoods } from '../../actions/products_actions';
 
 import CollapseCheckbox from '../utils/CollapseCheckbox';
 import CollapseRadio from '../utils/CollapseRadio';
 
 import { frets , price } from '../utils/fixedCategoryData';
+
+import ShopProducts from './ShopProducts';
 
 
 class Shop extends Component {  
@@ -29,6 +31,11 @@ class Shop extends Component {
     componentDidMount(){
         this.props.dispatch(getBrands())
         this.props.dispatch(getWoods())
+        this.props.dispatch(getProductsToShop(
+            this.state.skip,
+            this.state.limit,
+            this.state.filters,
+        ))
     }
 
 
@@ -46,7 +53,7 @@ class Shop extends Component {
     }
 
     handleFilters = (filters,category) =>{
-        const newFilters = {...this.setState.filters}
+        const newFilters = {...this.state.filters}
         newFilters[category] = filters
 
 
@@ -55,8 +62,22 @@ class Shop extends Component {
             newFilters[category] = priceValues;
         }
 
+
+        this.showFilteredResults(newFilters);
         this.setState({
             filters: newFilters
+        })
+    }
+
+    showFilteredResults = (filters) =>{
+        this.props.dispatch(getProductsToShop(
+            0,
+            this.state.limit,
+            filters
+        )).then(()=>{
+            this.setState({
+                skip:0
+            })
         })
     }
 
@@ -95,7 +116,20 @@ class Shop extends Component {
                             />
                         </div>
                         <div className='right'>
-                            
+                            <div className='shop_options'>
+                                <div className='shop_grids clear'>
+                                    grids
+                                </div>
+                            </div>
+                            <div>
+                                <ShopProducts 
+                                    grid={this.state.grid}
+                                    limit={this.state.limit}
+                                    size={products.toShopSize}
+                                    products={products.toShop}
+                                    loadMore={()=> console.log('loadMoreeeee')}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
