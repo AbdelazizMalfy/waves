@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 const DashboardLayout = (props) => {
     return (
@@ -16,6 +17,22 @@ const DashboardLayout = (props) => {
                     <div className='links'>
                         <Link to='/user/cart'>My Cart</Link>
                     </div>
+                    {
+                        props.user.userData.isAdmin ?
+                        (<div> 
+                            <h2>Admin</h2>
+                            <div className='links'>
+                                <Link to='/admin/site_info'>Site Info</Link>
+                            </div> 
+                            <div className='links'>
+                                <Link to='/admin/add_product'>Add products</Link>
+                            </div>    
+                            <div className='links'>
+                                <Link to='/admin/manage_categories'>Manage Categories</Link>
+                            </div> 
+                        </div> )
+                        : null
+                    }
                 </div>   
                 <div className='user_right'>
                     {props.children}
@@ -25,4 +42,8 @@ const DashboardLayout = (props) => {
     )
 }
 
-export default DashboardLayout;
+const mapStateToProps = state => ({
+    user : state.user
+})
+
+export default connect(mapStateToProps)(DashboardLayout);
