@@ -13,6 +13,11 @@ import { frets , price } from '../utils/fixedCategoryData';
 import ShopProducts from './ShopProducts';
 
 
+
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faBars from '@fortawesome/fontawesome-free-solid/faBars'
+import faTh from '@fortawesome/fontawesome-free-solid/faTh'
+
 class Shop extends Component {  
 
     state = {
@@ -98,6 +103,14 @@ class Shop extends Component {
         console.log('clicked')
     }
 
+
+    handleGrid = () =>{
+        this.setState({
+            grid: !this.state.grid ? 'grid_bars': ''
+        })
+    }
+
+
     render() {
         console.log(this.state)
         const {products} = this.props
@@ -135,7 +148,22 @@ class Shop extends Component {
                         <div className='right'>
                             <div className='shop_options'>
                                 <div className='shop_grids clear'>
-                                    grids
+                                    <div
+                                        className={`grid_btn ${this.state.grid?'':'active'}`}
+                                        onClick={() => this.handleGrid()}
+                                    >
+                                        <FontAwesomeIcon 
+                                            icon={faTh}
+                                        />
+                                    </div>
+                                    <div
+                                        className={`grid_btn ${!this.state.grid?'':'active'}`}
+                                        onClick={() => this.handleGrid()}
+                                    >
+                                        <FontAwesomeIcon 
+                                            icon={faBars}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div>

@@ -28,34 +28,34 @@ class Card extends Component {
                         <div className='name'>{name}</div>
                         <div className='price'>${price}</div>
                     </div>
-                </div>
                 {
                     grid ? 
                         <div className='description'>
-                            Lorem Ipsim Holako and this is the end of the world we know.
+                            <p>{this.props.description}</p>
                         </div>
                         :null
                 }
-                <div className='actions'>
-                    <div className='button_wrapp'>
-                        <MyButton 
-                            type='default'
-                            altClass='card_link'
-                            title="View product"
-                            linkTo={`/product_detail/${_id}`}
-                            addStyle={{
-                                margin: '10px 0 0 0'
-                            }}
+                    <div className='actions'>
+                        <div className='button_wrapp'>
+                            <MyButton 
+                                type='default'
+                                altClass='card_link'
+                                title="View product"
+                                linkTo={`/product_detail/${_id}`}
+                                addStyle={{
+                                    margin: '10px 0 0 0'
+                                }}
 
-                        />
-                    </div>
-                    <div className='button_wrapp'>
-                        <MyButton 
-                            type='bag_link'
-                            runAction={()=>{
-                                console.log('added to cart')
-                            }}
-                        />
+                            />
+                        </div>
+                        <div className='button_wrapp'>
+                            <MyButton 
+                                type='bag_link'
+                                runAction={()=>{
+                                    console.log('added to cart')
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
