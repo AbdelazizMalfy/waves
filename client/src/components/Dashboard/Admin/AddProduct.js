@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import DashboardLayout from '../../../hoc/DashboardLayout/DashboardLayout';
 
 import FormField from '../../utils/Form/FormField';
-import { update , generateData , isFormValid } from '../../utils/Form/FormActions';
+import { update , generateData , isFormValid , populateOptionFields} from '../../utils/Form/FormActions';
 
 import { connect } from 'react-redux';
-import { getBrands , getWoods } from '../../../actions/products_actions'; 
+import { getBrands , getWoods , postProduct } from '../../../actions/products_actions'; 
 
 class AddProduct extends Component {
     state = {
@@ -176,12 +176,58 @@ class AddProduct extends Component {
         }
     }
 
+
+    updateFieldsState = (newFormData) => {
+        this.setState({
+            formdata : newFormData
+        })
+    }
+
+
+    updateForm = element => {
+        const newFormdata = update(element,this.state.formdata,'products');
+        this.setState({
+            formError:false,
+            formdata: newFormdata
+        })
+
+    }
+
+
+    onSubmitForm = e =>{
+        e.preventDefault();
+
+        let dataToSubmit = generateData(this.state.formdata,'register')
+        let formIsValid = isFormValid(this.state.formdata,'register')
+
+        if(formIsValid){
+           this.props.dispatch(postProduct(dataToSubmit));
+           this.props.history.push('/shop');
+        }else {
+            this.setState({formError:true})
+        }
+    }
+
+
+    componentDidMount(){
+        this.props.dispatch(getBrands()).then(response => {
+            const newFormData = populateOptionFields(this.state.formdata,this.props.products.brands,'brand')
+            this.updateFieldsState(newFormData);
+        })
+        this.props.dispatch(getWoods()).then(response => {
+            const newFormData = populateOptionFields(this.state.formdata,this.props.products.woods,'wood')
+            this.updateFieldsState(newFormData);
+        })
+
+
+    }
+
     render() {
         return (
             <DashboardLayout>
             <div>
                 <h1>Add Product</h1>
-                <form onSubmit={(e) => this.onFormSubmit(e)}>
+                <form onSubmit={(e) => this.onSubmitForm(e)}>
                     <FormField 
                         id={'name'}
                         formdata={this.state.formdata.name}
@@ -249,6 +295,9 @@ class AddProduct extends Component {
         )
     }
 }
+
+
+
 
 const mapStateToProps = state => ({
     products: state.products

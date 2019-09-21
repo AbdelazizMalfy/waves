@@ -4,7 +4,8 @@ import {
     GET_PRODUCTS_BY_ARRIVAL,
     GET_BRANDS,
     GET_WOODS,
-    GET_PORDUCTS_TO_SHOP
+    GET_PORDUCTS_TO_SHOP,
+    POST_PRODUCT
 } from './types';
 
 import { PRODUCT_SERVER } from '../components/utils/misc';
@@ -51,6 +52,16 @@ export function getProductsToShop(skip,limit,filters=[],previousState=[]){
 
     return {
         type: GET_PORDUCTS_TO_SHOP,
+        payload: request
+    }
+}
+
+export function postProduct(dataToSubmit){
+    const request = axios.post(`${PRODUCT_SERVER}/product`, dataToSubmit)
+        .then(response => response.datat)
+
+    return {
+        type: POST_PRODUCT,
         payload: request
     }
 }
