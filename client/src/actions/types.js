@@ -9,4 +9,6 @@ export const GET_BRANDS = 'GET_BRANDS';
 export const GET_WOODS = 'GET_WOODS';
 export const GET_PORDUCTS_TO_SHOP = 'GET_PORDUCTS_TO_SHOP';
 export const POST_PRODUCT = 'POST_PRODUCT'
+export const POST_BRAND = 'POST_BRAND'; 
+export const POST_WOOD = 'POST_WOOD';
     

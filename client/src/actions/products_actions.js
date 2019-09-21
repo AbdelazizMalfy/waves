@@ -5,7 +5,9 @@ import {
     GET_BRANDS,
     GET_WOODS,
     GET_PORDUCTS_TO_SHOP,
-    POST_PRODUCT
+    POST_PRODUCT,
+    POST_BRAND,
+    POST_WOOD
 } from './types';
 
 import { PRODUCT_SERVER } from '../components/utils/misc';
@@ -82,6 +84,16 @@ export function getBrands(){
     }
 }
 
+export function postBrand(dataToSubmit){
+    const request = axios.post(`${PRODUCT_SERVER}/brand`,dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type:POST_BRAND,
+        payload:request
+    }
+}
+
 export function getWoods(){
     const request = axios.get(`${PRODUCT_SERVER}/woods`)
         .then(response => response.data)
@@ -89,5 +101,16 @@ export function getWoods(){
     return {
         type: GET_WOODS,
         payload: request
+    }
+}
+
+
+export function postWood(dataToSubmit){
+    const request = axios.post(`${PRODUCT_SERVER}/wood`,dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type:POST_WOOD,
+        payload:request
     }
 }
