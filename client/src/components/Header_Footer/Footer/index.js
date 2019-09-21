@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faCompass from '@fortawesome/fontawesome-free-solid/faCompass'
 import faPhone from '@fortawesome/fontawesome-free-solid/faPhone'
@@ -10,7 +11,7 @@ const Footer = () => {
         <footer className='bck_b_dark'>
             <div className='container'>
                 <div className='logo'>
-                    Waves
+                    <Link to='/'>Waves</Link>
                 </div>
                 <div className='wrapper'>
                     <div className='left'>

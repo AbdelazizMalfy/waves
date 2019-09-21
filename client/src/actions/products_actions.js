@@ -58,7 +58,7 @@ export function getProductsToShop(skip,limit,filters=[],previousState=[]){
 
 export function postProduct(dataToSubmit){
     const request = axios.post(`${PRODUCT_SERVER}/product`, dataToSubmit)
-        .then(response => response.datat)
+        .then(response => response.data)
 
     return {
         type: POST_PRODUCT,
@@ -73,21 +73,21 @@ export function postProduct(dataToSubmit){
 ///////////////////////
 
 export function getBrands(){
-    const requset = axios.get(`${PRODUCT_SERVER}/brands`)
+    const request = axios.get(`${PRODUCT_SERVER}/brands`)
         .then(response => response.data)
 
     return {
         type: GET_BRANDS,
-        payload: requset
+        payload: request
     }
 }
 
 export function getWoods(){
-    const requset = axios.get(`${PRODUCT_SERVER}/woods`)
+    const request = axios.get(`${PRODUCT_SERVER}/woods`)
         .then(response => response.data)
 
     return {
         type: GET_WOODS,
-        payload: requset
+        payload: request
     }
 }

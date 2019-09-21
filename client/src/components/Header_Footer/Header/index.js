@@ -117,7 +117,7 @@ class Header extends React.Component {
                 <div className='container'>
                     <div className='left'>
                         <div className='logo'>
-                            WAVES
+                            <Link to='/'>WAVES</Link>
                         </div>
                     </div>
                     <div className='right'>

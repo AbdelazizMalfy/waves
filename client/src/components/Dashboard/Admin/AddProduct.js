@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import DashboardLayout from '../../../hoc/DashboardLayout/DashboardLayout';
+import { connect } from 'react-redux';
 
+// import FileUpload from '../../utils/Form/FileUpload';
 import FormField from '../../utils/Form/FormField';
 import { update , generateData , isFormValid , populateOptionFields} from '../../utils/Form/FormActions';
 
-import { connect } from 'react-redux';
 import { getBrands , getWoods , postProduct } from '../../../actions/products_actions'; 
 
 class AddProduct extends Component {
@@ -172,6 +173,16 @@ class AddProduct extends Component {
                 touched:false,
                 validationMessage:'',
                 showlabel:true
+            },
+            images:{
+                value:[],
+                validation:{
+                    required:false
+                },
+                valid:true,
+                touched:false,
+                validationMessage:'',
+                showlabel:false
             }
         }
     }
@@ -199,10 +210,16 @@ class AddProduct extends Component {
 
         let dataToSubmit = generateData(this.state.formdata,'register')
         let formIsValid = isFormValid(this.state.formdata,'register')
-
+        
         if(formIsValid){
-           this.props.dispatch(postProduct(dataToSubmit));
-           this.props.history.push('/shop');
+           this.props.dispatch(postProduct(dataToSubmit))
+            .then(()=>{
+            if(this.props.products.addedProduct.addProductSuccess){
+                this.props.history.push('/shop');
+            }else {
+                this.setState({formError: true});
+            }
+           });
         }else {
             this.setState({formError:true})
         }
@@ -218,9 +235,13 @@ class AddProduct extends Component {
             const newFormData = populateOptionFields(this.state.formdata,this.props.products.woods,'wood')
             this.updateFieldsState(newFormData);
         })
-
-
     }
+
+
+    imagesHandler = (images) => {
+        console.log(images);
+    }
+
 
     render() {
         return (
@@ -228,6 +249,11 @@ class AddProduct extends Component {
             <div>
                 <h1>Add Product</h1>
                 <form onSubmit={(e) => this.onSubmitForm(e)}>
+                    {/* <FileUpload 
+                        imagesHandler={(images) => this.imagesHandler(images)}
+                        reset={this.state.formSuccess}
+                    /> */}
+
                     <FormField 
                         id={'name'}
                         formdata={this.state.formdata.name}
