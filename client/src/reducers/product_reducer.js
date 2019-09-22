@@ -43,12 +43,14 @@ export default function(state={},action){
         case POST_BRAND:
             return{
                 ...state,
-                addBrand: action.payload
+                addBrandSuccess: action.payload.addBrandSuccess,
+                brands: action.payload.brands
             }
         case POST_WOOD:
             return{
                 ...state,
-                addWood: action.payload
+                addWoodSuccess: action.payload.addWoodSuccess,
+                woods: action.payload.woods
             }
         default:
             return {...state}

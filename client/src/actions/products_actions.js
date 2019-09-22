@@ -84,10 +84,20 @@ export function getBrands(){
     }
 }
 
-export function postBrand(dataToSubmit){
+export function postBrand(dataToSubmit,existingBrands){
     const request = axios.post(`${PRODUCT_SERVER}/brand`,dataToSubmit)
-        .then(response => response.data)
+        .then(response => {
+            let brands = [
+                ...existingBrands,
+                response.data.brand
+            ]
 
+            return {
+                addBrandSuccess : response.data.addBrandSuccess,
+                brands
+            }
+        })
+        
     return {
         type:POST_BRAND,
         payload:request
@@ -105,9 +115,19 @@ export function getWoods(){
 }
 
 
-export function postWood(dataToSubmit){
+export function postWood(dataToSubmit,existingWoods){
     const request = axios.post(`${PRODUCT_SERVER}/wood`,dataToSubmit)
-        .then(response => response.data)
+        .then(response => {
+            let woods = [
+                ...existingWoods,
+                response.data.wood
+            ]
+
+            return {
+                addWoodSuccess : response.data.addWoodSuccess,
+                woods
+            }
+        })
 
     return {
         type:POST_WOOD,
