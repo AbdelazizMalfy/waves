@@ -32,7 +32,9 @@ class UserCart extends Component {
 
                 this.props.dispatch(getCartItems(cartIds,user.userData.cart))
                 .then(()=>{
-
+                    if(this.props.user.cartDetails.length > 0){
+                        this.calculateTotal(this.props.user.cartDetails)
+                    }
                 })
 
             }
@@ -40,7 +42,7 @@ class UserCart extends Component {
     }
 
     removeFromCart = () => {
-        
+
     }
 
     render() {
