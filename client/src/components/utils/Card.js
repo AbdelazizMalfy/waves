@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { addToCart } from '../../actions/user_actions';
+
 import MyButton from './MyButton';
 
 class Card extends Component {
@@ -52,7 +57,11 @@ class Card extends Component {
                             <MyButton 
                                 type='bag_link'
                                 runAction={()=>{
-                                    console.log('added to cart')
+                                    if(this.props.user.userData.isAuth){
+                                        this.props.dispatch(addToCart(_id))
+                                    } else {
+                                        this.props.history.push('/register_login')
+                                    }
                                 }}
                             />
                         </div>
@@ -62,4 +71,9 @@ class Card extends Component {
         )
     }
 }
-export default Card;
+const mapStateToProps = state => ({
+    user:state.user
+})
+
+
+export default connect(mapStateToProps)(withRouter(Card));

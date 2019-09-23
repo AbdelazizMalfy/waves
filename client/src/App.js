@@ -4,15 +4,19 @@ import './App.css';
 import AuthenticationCheck from './hoc/AuthenticationCheck/AuthenticationCheck';
 import Layout from './hoc/Layout';
 
+//Auth
 import Dashboard from './components/Dashboard';
+import UserCart from './components/Dashboard/Cart';
+
+//Admin
 import AddProduct from './components/Dashboard/Admin/AddProduct';
 import ManageCateg from './components/Dashboard/Admin/ManageCateg';
 
-
+//Not Auth
 import Register from './components/Register_Login/Register';
 import RegisterLogin from './components/Register_Login'
 
-
+//Public
 import ProductDetails from './components/Product';
 import Shop from './components/Shop';
 import Home from './components/Home';
@@ -22,6 +26,8 @@ const App = () => {
       <Layout>
         <Switch>
           <Route path="/user/dashboard" exact component={AuthenticationCheck(Dashboard,true)} />
+          <Route path="/user/cart" exact component={AuthenticationCheck(UserCart,true)} />
+
           <Route path="/admin/add_product" exact component={AuthenticationCheck(AddProduct,true)} />
           <Route path="/admin/manage_categories" exact component={AuthenticationCheck(ManageCateg,true)} />
           

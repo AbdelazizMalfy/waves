@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import PageTop from '../utils/PageTop';
 import { getProductDetail , clearProductDetail } from '../../actions/products_actions';
+import { addToCart } from '../../actions/user_actions';
 import ProdDetails from './ProdDetails';
 import ProdImg from './ProdImg';
 
@@ -20,6 +21,10 @@ class ProductDetails extends Component {
 
     componentWillUnmount(){
         this.props.dispatch(clearProductDetail());
+    }
+
+    addToCartHandler(id){
+        this.props.dispatch(addToCart(id))
     }
 
     render() {
