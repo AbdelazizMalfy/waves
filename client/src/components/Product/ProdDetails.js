@@ -48,7 +48,33 @@ const ProdDetails = (props) => {
         </div>
     )
 
+    const showProdActions = (details) =>(
+        <div className='product_actions'>
+            <div className='price'>$ {details.price}</div>
+            <div className='cart'>
+                <MyButton 
+                    type="add_to_cart_link"
+                    runAction={()=>{
+                        console.log('Add To Cart')
+                    }}
+                />    
+            </div>
+        </div>
+    )
 
+    const showProdSpecs = (details) => (
+        <div className='product_specifications'>
+            <h2>Specs:</h2>
+            <div>
+                <div className='item'>
+                    <strong>Frets:</strong> {details.frets}
+                </div>
+                <div className='item'>
+                    <strong>Wood:</strong> {details.wood.name}
+                </div>
+            </div>
+        </div>
+    )
 
     const {details} = props;
     return (
@@ -56,7 +82,8 @@ const ProdDetails = (props) => {
             <h1>{details.brand.name} - {details.name}</h1> 
             <p>{details.description}</p>
             { showProdTags(details) }
-            {/* { showProdActions(details) } */}
+            { showProdActions(details) }
+            { showProdSpecs(details) }
         </div>
     )
 }
