@@ -40,9 +40,33 @@ class UserCart extends Component {
             }
         }
     }
+    
+    calculateTotal = (cartDetails) => {
+        let total = 0;
+
+        cartDetails.forEach(item=>{
+            total += parseInt(item.price,10) * item.quantity
+        })
+
+        this.setState({
+            total,
+            showTotal:true
+        })
+    }
 
     removeFromCart = () => {
 
+    }
+
+    showNoItemMessage = () => {
+        return  (
+            <div className='cart_no_items'>
+                <FontAwesomeIcon icon={faFrown} />
+                <div>
+                    You have No Items
+                </div>
+            </div>
+        )
     }
 
     render() {
@@ -56,7 +80,35 @@ class UserCart extends Component {
                             type='cart'
                             removeItem={(id) => this.removeFromCart(id)}
                         />
+                        {
+                            this.state.showTotal ? 
+                            <div className='user_cart_sum'>
+                                <div>
+                                    Total amount: ${this.state.total}
+                                </div>
+                            </div>
+                            :
+                                this.state.showSuccess ? 
+                                    <div className='cart_success'>
+                                        <FontAwesomeIcon icon={faFrown} />
+                                            <div>
+                                                THANK YOU
+                                            </div>
+                                            <div>
+                                                YOUR ORDER IS COMPLETE
+                                            </div>
+                                    </div>
+                                : 
+                                this.showNoItemMessage()
+                        }
                     </div>
+                    {
+                        this.state.showTotal?
+                        <div className='paypal_button_container'>
+                            Paypal
+                        </div>
+                        : null
+                    }
                 </div>
             </DashboardLayout>
         )

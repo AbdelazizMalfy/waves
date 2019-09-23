@@ -303,6 +303,19 @@ app.post('/api/users/addToCart',auth,(req,res) =>{
 })
 
 
+app.get('/api/user/removeFromCard',auth,(req,res) =>{
+
+    User.findOneAndUpdate(
+        {_id:req.user._id},
+        { "$pull":
+            {"cart": {"id": mongoose.Types.ObjectId(req.query._id)} }
+        },
+        {new:true},
+        (err,doc)=>{
+            let cart 
+        }
+    )
+})
 
 
 port = process.env.PORT || 3002;
