@@ -7,10 +7,34 @@ import {
     GET_PORDUCTS_TO_SHOP,
     POST_PRODUCT,
     POST_BRAND,
-    POST_WOOD
+    POST_WOOD,
+    GET_PRODUCT_DETAIL,
+    CLEAR_PRODUCT_DETAIL
 } from './types';
 
 import { PRODUCT_SERVER } from '../components/utils/misc';
+
+
+
+export function getProductDetail(id){
+    const request = axios.get(`${PRODUCT_SERVER}/products_by_id?id=${id}&type=single`)
+        .then(response => response.data[0])
+
+    return{
+        type: GET_PRODUCT_DETAIL,
+        payload: request
+    }
+}
+
+
+export function clearProductDetail(){
+    return {
+        type: CLEAR_PRODUCT_DETAIL,
+        payload: ''
+    }
+
+}
+
 
 
 export function getProductBySell(){

@@ -6,7 +6,9 @@ import {
     GET_PORDUCTS_TO_SHOP,
     POST_PRODUCT,
     POST_BRAND,
-    POST_WOOD
+    POST_WOOD,
+    GET_PRODUCT_DETAIL,
+    CLEAR_PRODUCT_DETAIL
 } from '../actions/types';
 
 export default function(state={},action){
@@ -51,6 +53,16 @@ export default function(state={},action){
                 ...state,
                 addWoodSuccess: action.payload.addWoodSuccess,
                 woods: action.payload.woods
+            }
+        case GET_PRODUCT_DETAIL:
+            return{
+                ...state,
+                prodDetails:action.payload
+            }
+        case CLEAR_PRODUCT_DETAIL:
+            return{
+                ...state,
+                prodDetails:action.payload
             }
         default:
             return {...state}
