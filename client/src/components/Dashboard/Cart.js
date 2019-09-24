@@ -3,7 +3,7 @@ import DashboardLayout from '../../hoc/DashboardLayout/DashboardLayout';
 
 import { connect } from 'react-redux';
 
-import { getCartItems } from '../../actions/user_actions';
+import { getCartItems, removeCartItem } from '../../actions/user_actions';
 import ProductBlock from '../utils/ProductBlock';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -54,8 +54,8 @@ class UserCart extends Component {
         })
     }
 
-    removeFromCart = () => {
-
+    removeFromCart = (id) => {
+        this.props.dispatch(removeCartItem(id));
     }
 
     showNoItemMessage = () => {

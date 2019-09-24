@@ -298,12 +298,12 @@ app.post('/api/users/addToCart',auth,(req,res) =>{
                     res.status(200).json(doc.cart)
                 }
             )
-        }
+        }   
     })
 })
 
 
-app.get('/api/user/removeFromCard',auth,(req,res) =>{
+app.get('/api/users/removeFromCard',auth,(req,res) =>{
 
     User.findOneAndUpdate(
         {_id:req.user._id},
@@ -312,7 +312,21 @@ app.get('/api/user/removeFromCard',auth,(req,res) =>{
         },
         {new:true},
         (err,doc)=>{
-            let cart 
+            let cart = doc.cart;
+            let array = cart.map(item=>{
+                return mongoose.Types.ObjectId(item.id)
+            })
+
+            Product
+            .find({'_id': { $in: array }})
+            .populate('brand')
+            .populate('wood')
+            .exec((err,cartDetails)=>{
+                return res.status(200).json({
+                    cartDetails,
+                    cart
+                })
+            })
         }
     )
 })
