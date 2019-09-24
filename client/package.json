@@ -13,6 +13,7 @@
     "react-dom": "^16.9.0",
     "react-dropzone": "^10.1.9",
     "react-images": "^1.0.0",
+    "react-paypal-express-checkout": "^1.0.5",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
