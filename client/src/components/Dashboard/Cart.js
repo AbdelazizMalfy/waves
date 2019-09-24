@@ -10,6 +10,10 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFrown from '@fortawesome/fontawesome-free-solid/faFrown'
 import faSmile from '@fortawesome/fontawesome-free-solid/faSmile'
 
+
+/// AbSvixWSuWQdH3ROnvoK9qW2lUDXGT2TlFOINMTHTbnf-qcfNM1qKrPrAnl0VeXmFAP1OfQs3EvubpGc
+
+
 class UserCart extends Component {
 
     state = {
@@ -55,7 +59,16 @@ class UserCart extends Component {
     }
 
     removeFromCart = (id) => {
-        this.props.dispatch(removeCartItem(id));
+        this.props.dispatch(removeCartItem(id))
+            .then(response => {
+                if(this.props.user.cartDetails.length <= 0){
+                    this.setState({
+                        showTotal:false
+                    })
+                }else {
+                    this.calculateTotal(this.props.user.cartDetails)
+                }
+            })
     }
 
     showNoItemMessage = () => {
