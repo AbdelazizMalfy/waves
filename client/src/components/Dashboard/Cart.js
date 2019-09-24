@@ -3,7 +3,7 @@ import DashboardLayout from '../../hoc/DashboardLayout/DashboardLayout';
 
 import { connect } from 'react-redux';
 
-import { getCartItems, removeCartItem } from '../../actions/user_actions';
+import { getCartItems, removeCartItem , onSuccessBuy } from '../../actions/user_actions';
 import ProductBlock from '../utils/ProductBlock';
 import Paypal from '../utils/Paypal';
 
@@ -91,9 +91,17 @@ class UserCart extends Component {
     }
 
     transactionSuccess = (data) => {
-        this.setState({
-            showTotal: false,
-            showSuccess: true
+        this.props.dispatch(onSuccessBuy({
+            cartDetails: this.props.user.cartDetails,
+            paymentData: data
+        })).then(()=>{
+            if(this.props.user.successBuy){
+                this.setState({
+                    showTotal: false,
+                    showSuccess: true
+                })
+
+            }
         })
     }
 
