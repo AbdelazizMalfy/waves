@@ -5,15 +5,15 @@ class Paypal extends Component {
     render() {
 
         const onSuccess = (payment) => {
-
+            this.props.onSuccess(payment)
         }
 
         const onCancel = (data) => {
-
+            console.log(JSON.stringify(data));
         }
 
-        const onError = (errors) => {
-
+        const onError = (err) => {
+            console.log(JSON.stringify(err));
         }
 
         let env='sandbox';
