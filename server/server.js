@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const mongoose = require('mongoose');
+const async = require('async');
 require('dotenv').config();
 
 app.use(bodyParser.urlencoded({extended:true}))
@@ -372,8 +373,29 @@ app.post('/api/users/successBuy',auth,(req,res)=>{
 
             payment.save((err,doc)=> {
                 if(err) return json({success:false,err})
+                let products = [];
+                doc.product.forEach(item =>{
+                    products.push({id:item.id,quantity:item.quantity})
+                })
 
-                
+                async.eachOfSeries(products,(items,next)=>{
+                    Product.update(
+                        {_id: item.id},
+                        { $inc:{
+                            "sold": item.quantity
+                        }},
+                        {new : false},
+                        next
+                        )
+                },(err)=>{
+                    if(err) return res.json({success:false,err})
+
+                    res.status(200).json({
+                        success:true,
+                        cart: user.cart,
+                        cartDetails:[]
+                    })
+                })
             })
         }  
     )
