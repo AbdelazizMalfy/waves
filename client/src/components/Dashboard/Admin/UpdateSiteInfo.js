@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormField from '../../utils/Form/FormField';
 import { update , generateData , isFormValid , populateFields } from '../../utils/Form/FormActions'
 
-import { getSiteInfo } from '../../../actions/site_actions';
+import { getSiteInfo , updateSiteInfo } from '../../../actions/site_actions';
 
 class UpdateSiteInfo extends Component {
 
@@ -101,7 +101,18 @@ class UpdateSiteInfo extends Component {
         let formIsValid = isFormValid(this.state.formdata,'site_info')
 
         if(formIsValid){
-            console.log(dataToSubmit);
+            this.props.dispatch(updateSiteInfo(dataToSubmit))
+                .then(()=>{
+                    this.setState({
+                        formSuccess:true
+                    }, () =>{
+                        setTimeout(() => {
+                            this.setState({
+                                formSuccess:false
+                            })
+                        }, 2000);
+                    })
+                })
         }else {
             this.setState({
                 formError:true
