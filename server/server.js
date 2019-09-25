@@ -11,9 +11,10 @@ require('dotenv').config();
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.use(express.static('client/build'))
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE);
+mongoose.connect(process.env.MONGODB_URI);
 
 
 
@@ -446,6 +447,16 @@ app.post('/api/site/site_info',auth,admin,(req,res)=>{
         }
     )
 })
+
+
+// DEFAULT
+if(process.env.NODE_ENV === 'production'){
+    const path = require('path');
+    app.get('/*', (req,res)=>{
+        res.sendfile(path.resolve(__,'../client','build',index.html))
+    })
+}
+
 
 port = process.env.PORT || 3002;
 
