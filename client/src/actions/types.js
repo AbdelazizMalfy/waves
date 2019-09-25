@@ -20,4 +20,6 @@ export const POST_BRAND = 'POST_BRAND';
 export const POST_WOOD = 'POST_WOOD';
 export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
 export const CLEAR_PRODUCT_DETAIL = 'CLEAR_PRODUCT_DETAIL';
-    
+
+
+export const GET_SITE_INFO = 'GET_SITE_INFO';

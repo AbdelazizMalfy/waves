@@ -24,6 +24,7 @@ const { Brand } = require('./models/brand');
 const { Wood } = require('./models/wood');
 const { Product } = require('./models/product');
 const { Payment } = require('./models/payment');
+const { Site } = require('./models/site');
 
 //Middlewares 
 
@@ -418,6 +419,24 @@ app.post('/api/users/update_profile',auth,(req,res)=>{
 })
 
 
+//=============================
+//            SITE
+//=============================
+
+app.get('/api/site/site_info',(req,res)=>{
+    Site.find({},(err,site)=>{
+        if(err) return res.status(400).send(err)
+        res.status(200).send(site[0].siteInfo)
+    })
+})
+
+
+app.post('/api/site/site_info',auth,admin,(req,res)=>{
+
+    Site.findOneAndUpdate({
+
+    })
+})
 
 port = process.env.PORT || 3002;
 
