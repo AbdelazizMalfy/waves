@@ -3,6 +3,8 @@ import React from 'react';
 import MyButton from '../utils/MyButton'
 import DashboardLayout from '../../hoc/DashboardLayout/DashboardLayout';
 
+import HistoryBlock from '../utils/HistoryBlock';
+
 const Dashboard = ({user}) => {
     return (
         <DashboardLayout>
@@ -21,12 +23,18 @@ const Dashboard = ({user}) => {
                     />
                 </div>
 
-                <div className='user_nfo_panel' >
-                    <h1 >History purchases</h1>
-                    <div className='user_product_block_wrapper'>
-                        history
+                { 
+                    user.userData.history ? 
+                    <div className='user_nfo_panel' >
+                        <h1 >History purchases</h1>
+                        <div className='user_product_block_wrapper'>
+                            <HistoryBlock
+                                productsHistory={user.userData.history}
+                            />
+                        </div>
                     </div>
-                </div>
+                    :null
+                }
             </div>
         </DashboardLayout>
     )
