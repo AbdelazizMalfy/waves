@@ -12,6 +12,7 @@ import UpdatePersonalInfo from './components/Dashboard/UpdateProfile';
 //Admin
 import AddProduct from './components/Dashboard/Admin/AddProduct';
 import ManageCateg from './components/Dashboard/Admin/ManageCateg';
+import ManageSite from './components/Dashboard/Admin/ManageSite';
 
 //Not Auth
 import Register from './components/Register_Login/Register';
@@ -32,6 +33,7 @@ const App = () => {
 
           <Route path="/admin/add_product" exact component={AuthenticationCheck(AddProduct,true)} />
           <Route path="/admin/manage_categories" exact component={AuthenticationCheck(ManageCateg,true)} />
+          <Route path="/admin/site_info" exact component={AuthenticationCheck(ManageSite,true)} />
           
           <Route path="/register" exact component={AuthenticationCheck(Register,false)} />
           <Route path="/register_login" exact component={AuthenticationCheck(RegisterLogin,false)} />
