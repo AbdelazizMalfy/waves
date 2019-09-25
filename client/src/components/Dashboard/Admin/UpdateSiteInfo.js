@@ -110,7 +110,7 @@ class UpdateSiteInfo extends Component {
                             this.setState({
                                 formSuccess:false
                             })
-                        }, 2000);
+                        }, 1500);
                     })
                 })
         }else {
