@@ -113,7 +113,10 @@ class Register extends Component {
                     })
                 }
             })
-           console.log(dataToSubmit)
+        }else {
+            this.setState({
+                formError:true
+            })
         }
     }
 
@@ -125,7 +128,6 @@ class Register extends Component {
             formError:false,
             formdata: newFormdata
         })
-
     }
 
     

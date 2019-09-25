@@ -7,6 +7,7 @@ import Layout from './hoc/Layout';
 //Auth
 import Dashboard from './components/Dashboard';
 import UserCart from './components/Dashboard/Cart';
+import UpdatePersonalInfo from './components/Dashboard/UpdateProfile';
 
 //Admin
 import AddProduct from './components/Dashboard/Admin/AddProduct';
@@ -27,6 +28,7 @@ const App = () => {
         <Switch>
           <Route path="/user/dashboard" exact component={AuthenticationCheck(Dashboard,true)} />
           <Route path="/user/cart" exact component={AuthenticationCheck(UserCart,true)} />
+          <Route path="/user/user_profile" exact component={AuthenticationCheck(UpdatePersonalInfo,true)} />
 
           <Route path="/admin/add_product" exact component={AuthenticationCheck(AddProduct,true)} />
           <Route path="/admin/manage_categories" exact component={AuthenticationCheck(ManageCateg,true)} />
